@@ -16,6 +16,6 @@ public class Chaine5 {
 
     System.out.println(s1.equals(s3));//true
     System.out.println(s1.equals(s6));//false
-    System.out.print(s6.equals(s1));//Exception in thread "main" java.lang.NullPointerException
+    //System.out.print(s6.equals(s1));//Exception in thread "main" java.lang.NullPointerException
   }
 }
