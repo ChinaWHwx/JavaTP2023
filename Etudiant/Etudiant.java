@@ -5,6 +5,10 @@ public class Etudiant {
   private int id;
   private static int compteur = 0;
 
+  public Etudiant(){
+    compteur ++;
+  }
+
   public Etudiant(String nom, int id) {
     this.nom = nom;
     this.id = id;
@@ -19,8 +23,26 @@ public class Etudiant {
 
   public static void main(String args[]){
     Etudiant e  =  new Etudiant("xin", 1);
+    //Etudiant et = new Etudiant();
+
     System.out.println("nom:" + e.nom);
     System.out.println("id:" + e.id);
+
+    System.out.println(compteur);
+    System.out.println(getCompteur());
+
+    /*
+     * System.out.println(et.compteur);
+     * System.out.println(et.getCompteur());
+     * 在Java中，静态变量是属于类本身而不是类的实例对象的，
+     * 因此，应该使用类名来访问静态变量而不是使用实例对象来访问。
+     * 所以，应该使用Etudiant.compteur而不是et.compteur来访问静态变量。
+     */
+    
+
+    System.out.println(Etudiant.compteur);
+    System.out.println(Etudiant.getCompteur());//静态变量是所有类实例共享的变量，因此它们的值在类的所有实例之间是唯一的。
+
   }
 }
 
