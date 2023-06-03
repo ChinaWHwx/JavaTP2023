@@ -1,0 +1,7 @@
+1.Redefinition -- overriding
+2."Surcharge" dynamique (abus de langage)
+3.Actions differents pour des classes d'une meme hierarchie
+
+重写
+子类中实现父类中已有的方法进行重新定义。子类通过继承父类获得父类的方法。
+重写方法必须具有相同的方法签名（方法名、参数列表和返回类型），并且不能使用比父类方法更严格的访问。
