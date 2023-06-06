@@ -1,2 +1,5 @@
 Hello,xin!
 通过集成开发环境中的版本控制工具获取此项目时应该Rebuild project以获得SDK
+在项目结构设置对话框中，找到 Project 部分
+在语言水平应与SDK版本保持小于或等于，比如SDK是Java11语言水平是Java 8或者Java11均可
+若为Java18则出错
