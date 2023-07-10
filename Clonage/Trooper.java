@@ -2,7 +2,7 @@ package Clonage;
 
 import java.util.Random;
 
-public class Trooper {
+public class Trooper implements Cloneable{
     private static int compteur = 0;
     /*
      *计数器变量必须被声明为静态的，这样它的值就可以在所有的Trooper类的实例之间共享。
@@ -17,6 +17,7 @@ public class Trooper {
     private int niveauSante;
     private Arme arme;
     private Grade grade;
+    private  Ceinture ceinture;
 
     public Trooper(){
         this.id = ++compteur;
@@ -26,21 +27,35 @@ public class Trooper {
         this.grade = Grade.TROOPER;
     }
 
-    public Trooper(String nom, int niveauSante, Arme arme, Grade grade) {
+    public Trooper(String nom, int niveauSante, Arme arme, Grade grade, Ceinture ceinture) {
         this.id = ++compteur;
         this.nom = nom;
         this.niveauSante = niveauSante;
         this.arme = arme;
         this.grade = grade;
+        this.ceinture = ceinture;
     }
 
+    public void setId(){
+        this.id = id;
+    }
     public int getId() {
         return id;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+
     public String getNom() {
         return nom;
     }
+
+    public void setNiveauSante(int niveauSante) {
+        this.niveauSante = niveauSante;
+    }
+
 
     public int getNiveauSante() {
         return niveauSante;
@@ -54,6 +69,14 @@ public class Trooper {
         return grade;
     }
 
+    public void setCeinture(Ceinture ceinture) {
+        this.ceinture = ceinture;
+    }
+
+    public Ceinture getCeinture(){
+        return  ceinture;
+    }
+
     public void setArme(Arme arme) {
         this.arme = arme;
     }
@@ -64,17 +87,39 @@ public class Trooper {
                 "identifiant=" + id +
                 ", nom='" + nom + '\'' +
                 ", niveauSante=" + niveauSante +
-                ", arme=" + arme +
+                ", arme=" + (arme !=null?arme.getSerie():null) +
                 ", grade=" + grade +
+                ", ceinture= " + ceinture +
                 '}';
     }
 
-    public static void main(String[] args) {
-        Trooper trooper1 = new Trooper();
-        System.out.println(trooper1);
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Trooper trooper = (Trooper) super.clone();
+        if (this.arme != null) {
+            trooper.arme = (Arme) this.arme.clone(); // 深拷贝Arme对象
+        }
+        if (this.ceinture != null) {
+            trooper.ceinture = (Ceinture) this.ceinture.clone(); // 深拷贝Ceinture对象
+        }
+        return trooper;
+    }
 
-        Fusil fusil = new Fusil(123);
-        Trooper trooper2 = new Trooper("Cody", 80, fusil, Grade.SERGENT);
-        System.out.println(trooper2);
+
+
+
+    public static void main(String[] args) {
+        Trooper trooper = new Trooper();
+        System.out.println(trooper);
+
+        try {
+            Trooper clone = (Trooper) trooper.clone();
+            clone.setNom("Clone de Jango Fett #" + clone.getId());
+            clone.getArme().setSerie(999);
+            clone.setNiveauSante(49);
+            System.out.println(clone);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 }

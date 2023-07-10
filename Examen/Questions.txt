@@ -1,0 +1,346 @@
+class Personne{
+        String nom;
+
+        public Personne(String nom){
+            this.nom = nom;
+        }
+        void getNom(){
+            return nom;
+        }
+}
+
+Personne personne = new Personne("Joe Biden");
+System.out.println(personne.getNom());
+
+class Aninal{
+    protected String nom;
+
+    public Animal(String nom){
+        this.nom = nom;
+    }
+    void manger(){
+         System.out.println("L'animal mange");
+    }
+}
+
+class Chien extends Animal{
+    public Chien(String nom){
+        super(nom);                         //为什么要用super？
+                                            //使用super来调用父类的构造函数来初始化nom，并使之正确赋值。
+    }
+
+    @override
+    public void manger(){
+        System.out.println("Le chien mange");
+    }
+}
+
+Chien chien = new Chien("Max");
+chien.manger();//调用的Chien的manger方法
+
+interface Calculable{
+    int calculer(int a, int b);
+}
+
+class Calculatrice implements Calculable{
+    @override
+    public int calculer(int a, int b){
+        return a + b;
+    }
+}
+
+Calculatrice calcultrice =  new Calcultrice();
+int resultat = calcultrice.calculer(5,3);
+System.out.println(resultat);
+
+class MonException extends Exception{
+    public MonException(String message){
+        super(message);//
+    }
+}
+
+class Example{
+    public void diviser(int a, int b) throws MonException{   //throws用于在方法声明中指定该方法可能抛出的异常类型
+        if(b==0){
+            throw new MonException("Division par Zero");     //throw关键字用于在代码块中手动抛出一个特定的异常对象
+        }
+        int resultat = a / b;
+        System.out.println("Resultat:" + resultat);
+    }
+}
+
+La classe String est immuable, ce qui signifie qu'elle ne peut pas être modifiée une fois créée.
+Elle est utilisée pour représenter des chaînes de caractères constantes.
+
+La classe StringBuffer est mutable, ce qui signifie qu'elle peut être modifiée après sa création.
+Elle est utilisée lorsque des opérations de modification fréquentes sur une chaîne de caractères sont nécessaires,
+car elle est plus efficace en termes de performances.
+
+La classe StringBuilder est similaire à StringBuffer, mais n'est pas synchronisée, ce qui la rend plus rapide dans
+un contexte non thread-safe
+
+字符串类是不可变的，这意味着它一旦被创建就不能被修改。它被用来表示恒定的字符串。
+StringBuffer类是可变的，这意味着它在被创建后可以被修改。当需要对字符串进行频繁的修改操作时，它被使用，因为它在性能上更有效率。
+StringBuilder类与StringBuffer类似，但不是同步的，这使得它在非线程安全的情况下更快。
+
+abstract class Forme{
+    public abstract double calculerSurface();
+}
+
+class Cercle extends Forme{
+    private double rayon;
+
+    public Cercle(double rayon){
+        this.rayon = rayon;
+    }
+
+    @override
+    public double calculerSurface(){
+        return Math.PI * rayon * rayon;
+    }
+}
+
+class Rectangle extends Forme{
+    private double longueur;
+    private double largeur;
+
+    public Rectangle(double longeur, double largeur){
+        this.longeur = longeur;
+        this.largeur = largeur;
+    }
+
+    @override
+    public double calculerSurface(){
+        return longueur * largeur;
+    }
+}
+
+Question 7:
+
+Les noms de classes commencent par une majuscule et utilisent la casse Camel (ex: MaClasse).
+Les noms de variables et de méthodes commencent par une minuscule et utilisent la casse Camel (ex: maVariable, maMethode).
+Les constantes sont en majuscules avec des mots séparés par des underscores (ex: MA_CONSTANTE).
+
+Question 8: final
+Une classe déclarée comme "final" ne peut pas être étendue, c'est-à-dire qu'elle ne peut pas être utilisée comme classe parente pour l'héritage.
+Une méthode déclarée comme "final" ne peut pas être redéfinie dans les classes enfants.
+Une variable déclarée comme "final" ne peut pas être modifiée une fois qu'elle a été initialisée.
+
+class MonException extends Exception{
+    public MonException(String message){
+        super(message);
+    }
+}
+
+class Example{
+    public void lancerException() throws MonException{
+        throw new MonException("Mon exception personnalisee");
+    }
+}
+
+Exemple exemple = new Exemple();
+try {
+    exemple.lancerException();
+} catch( MonException e){
+    System.out.println("Exception :" + e.getMessage());//当捕获到一个异常对象时，可以使用'getMessage()'来获取异常的消息字符串
+}
+
+
+
+try (FileReader fileReader = new FileReader("fichier.txt");
+     BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+    String ligne;
+    while ((ligne = bufferedReader.readLine()) != null) {
+        System.out.println(ligne);
+    }
+} catch (IOException e) {
+    System.out.println("Erreur de lecture du fichier : " + e.getMessage());
+}
+
+Question 11:
+Les principales méthodes de la classe Object sont :
+toString() : retourne une représentation sous forme de chaîne de caractères de l'objet.
+equals(Object obj) : compare l'objet avec un autre objet pour déterminer s'ils sont égaux.
+hashCode() : retourne un code de hachage unique pour l'objet.
+clone() : crée et renvoie une copie de l'objet.
+getClass() : retourne la classe de l'objet.
+finalize() : est appelée par le ramasse-miettes avant de libérer l'objet.
+
+问题11：
+Object类的主要方法是 ：
+toString(): 返回对象的一个字符串表示。
+equals(Object obj): 将该对象与另一个对象进行比较，以确定它们是否相等。
+hashCode(): 返回对象的唯一哈希代码。
+clone(): 创建并返回一个对象的副本。
+getClass(): 返回对象的类别。
+finalize(): 在释放对象之前由垃圾收集器调用。
+
+问题12：
+Java中的序列化是将一个对象转换为一个字节序列的过程，它可以存储在一个文件中或通过网络传输。
+序列化被用于对象的持久化和Java虚拟机之间的对象传输。
+Serializable和Externalizable接口是用来表示一个类的对象可以被序列化的。
+
+Question 13:
+
+@Override : indique que la méthode est une redéfinition d'une méthode dans la classe parente.
+@Deprecated : indique qu'une classe, une méthode ou un champ est déprécié et ne devrait plus être utilisé.
+@SuppressWarnings : supprime lesavertissements du compilateur pour un code spécifique.
+
+@Override：表示该方法是对父类中一个方法的重新定义。
+@Deprecated：表示一个类、方法或字段已被废弃，不应继续使用。
+@SuppressWarnings：删除特定代码的编译器警告。
+
+Les classes anonymes et les expressions lambda sont utilisées pour créer
+des implémentations de classe ou d'interface de manière concise et en ligne.
+
+匿名类：                                        ？？？？？？？？？？？？？？？？？与接口的区别
+interface Calculable {
+    int calculer(int a, int b);
+}
+
+// Utilisation d'une classe anonyme
+Calculable calculable = new Calculable() {
+    @Override
+    public int calculer(int a, int b) {
+        return a + b;
+    }
+};
+
+System.out.println(calculable.calculer(5, 3));
+
+lambda表达式：                                     ？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+语法：
+(parameters) -> { body }
+1.无参数的Lambda表达式
+() -> System.out.println("Hello, World!")
+2.单个参数的Lambda表达式
+x -> x * x
+3.多个参数的Lambda表达式
+(x, y) -> x + y
+4.带有代码块的Lambda表达式
+(x, y) -> {
+    int sum = x + y;
+    System.out.println("Sum: " + sum);
+}
+Lambda表达式可以用于函数式接口的实例化，函数式接口是只包含一个抽象方法的接口。
+可以使用Lambda表达式来替代传统的匿名内部类，以更简洁的方式实现接口的实例化。
+
+interface Calculable {
+    int calculer(int a, int b);
+}
+
+// Utilisation d'une expression lambda
+Calculable calculable = (a, b) -> a + b;
+
+System.out.println(calculable.calculer(5, 3));
+
+嵌套类：
+-静态内部类
+class MaClasse {
+    // Classe interne statique
+    static class ClasseInterneStatique {
+        // ...
+    }
+}
+
+// Utilisation de la classe interne statique
+MaClasse.ClasseInterneStatique instance = new MaClasse.ClasseInterneStatique();
+
+-非静态内部类
+class MaClasse {
+    // Classe interne non statique
+    class ClasseInterne {
+        // ...
+    }
+}
+
+// Utilisation de la classe interne non statique
+MaClasse maClasse = new MaClasse();
+MaClasse.ClasseInterne instance = maClasse.new ClasseInterne();
+
+
+集合
+Les collections en Java sont des structures de données prédéfinies pour stocker et manipuler des objets.
+Java中的集合是预定义的数据结构，用于存储和操作对象。
+-ArrayList：一个使用底层数组实现的可调整大小的列表
+import java.util.ArrayList;
+
+// Création d'une ArrayList
+ArrayList<String> liste = new ArrayList<>();
+
+// Ajout d'éléments à la liste
+liste.add("Element 1");
+liste.add("Element 2");
+
+// Parcours des éléments de la liste
+for (String element : liste) {
+    System.out.println(element);
+}
+
+
+-LinkedList：一个双链的列表，用于快速访问和修改。
+import java.util.LinkedList;
+
+// Création d'une LinkedList
+LinkedList<String> liste = new LinkedList<>();
+
+// Ajout d'éléments à la liste
+liste.add("Element 1");
+liste.add("Element 2");
+
+// Parcours des éléments de la liste
+for (String element : liste) {
+    System.out.println(element);
+}
+
+-HashSet：一个不允许重复的集合，没有特定的顺序。
+import java.util.HashSet;
+
+// Création d'un HashSet
+HashSet<String> ensemble = new HashSet<>();
+
+// Ajout d'éléments à l'ensemble
+ensemble.add("Element 1");
+ensemble.add("Element 2");
+
+// Parcours des éléments de l'ensemble
+for (String element : ensemble) {
+    System.out.println(element);
+}
+
+-HashMap：一个将键与值联系起来的哈希表。
+import java.util.HashMap;
+
+// Création d'un HashMap
+HashMap<String, Integer> map = new HashMap<>();
+
+// Ajout de paires clé-valeur à la map
+map.put("Clé 1", 1);
+map.put("Clé 2", 2);
+
+// Parcours des paires clé-valeur de la map
+for (String cle : map.keySet()) {
+    Integer valeur = map.get(cle);
+    System.out.println(cle + " : " + valeur);
+}
+
+Question 17:
+La sérialisation en détail comprend des concepts tels que les versions de classe, les objets transitoires, les méthodes readObject() et writeObject(), la sérialisation personnalisée, la sérialisation des classes parentes, etc. Ces concepts sont utilisés pour contrôler le processus de sérialisation et de désérialisation en Java.
+
+Question 18:
+Les streams en Java 8 sont utilisés pour effectuer des opérations de traitement de données de manière fluide et fonctionnelle. Les opérations de collecte, les opérations d'intermédiaire et les opérations terminales peuvent être appliquées sur les streams pour manipuler les données. Les streams offrent des performances optimisées et un code plus lisible.
+
+Question 19:
+La généricité avancée en Java comprend des concepts tels que les types génériques, les classes génériques, les méthodes génériques, les contraintes de type et les wildcards. Ces concepts permettent d'écrire un code générique qui peut fonctionner avec différents types de données tout en garantissant la sécurité des types à la compilation.
+
+问题17：
+序列化的详细内容包括类的版本、暂存对象、readObject()和writeObject()方法、自定义序列化、父类序列化等概念。
+这些概念被用来控制Java中的序列化和反序列化过程。
+
+问题18：
+Java 8中的流被用来以流畅和功能性的方式进行数据处理操作。
+收集操作、中间操作和终端操作都可以应用于流来操作数据。流提供了优化的性能和更可读的代码。
+
+问题19：
+Java的高级通用性包括一些概念，如通用类型、通用类、通用方法、类型约束和通配符。
+这些概念使得编写可以处理不同数据类型的通用代码成为可能，同时保证了编译时的类型安全。
