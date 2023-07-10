@@ -1,0 +1,19 @@
+java.lang.Object 是 Java 中所有类的根类，因此它是所有类的父类,Object类中的方法对于所有对象都是可用的。
+
+clone()
+clone() 方法是 Object 类中提供的一种浅拷贝方法，用于在运行时创建一个对象的副本，以替代直接调用构造函数创建新对象的方法。使用 clone() 方法可以避免浪费系统资源，提高代码效率。需要注意的是，要实现 clone() 方法，需要让该类实现 Cloneable 接口，否则将会抛出 CloneNotSupportedException 异常。
+
+finalize()
+finalize() 方法是 Object 类中提供的一个在对象被垃圾回收之前执行的方法，用于清理对象的资源。该方法在垃圾回收器确定一个对象没有被引用后，自动调用。finalize() 方法是一个非常不可预测的方法，不建议在代码中重写该方法。
+
+toString()
+toString() 方法是 Object 类中提供的一个将对象转换为字符串的方法。默认情况下，该方法返回一个由类名、@符号和对象的哈希码组成的字符串。可以在自定义的类中重写该方法，以返回更有意义的字符串表示。
+
+getClass().getName()
+getClass() 方法是 Object 类中提供的一个获取对象所属类的 Class 对象的方法，getName() 方法则是获取该 Class 对象的名称。在许多情况下，这两个方法可以一起使用，以获取对象所属类的名称。例如，下面的代码将输出 "java.lang.String"：
+
+String str = "Hello, world!";
+System.out.println(str.getClass().getName());
+
+public boolean equals(Object obj)
+其中，equals(Object obj)方法是Object类中的一个方法，用于判断两个对象是否相等。

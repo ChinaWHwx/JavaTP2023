@@ -1,0 +1,15 @@
+private
+被声明为private的成员只能被该类的内部方法访问，其他类都不能访问。
+Dans la même classe
+
+protected
+被声明为protected的成员可以被同一个包中的类和该类的子类访问。
+Dans la même package ou sous-classe d'un package différent
+
+defaut
+如果没有使用任何访问修饰符，即成员被默认为default。被声明为default的成员只能被同一个包中的类访问。
+Dans la même package
+
+public
+被声明为public的成员可以被任何类访问，无论这些类是不是在同一个包中。
+Tout le monde peut y accéder

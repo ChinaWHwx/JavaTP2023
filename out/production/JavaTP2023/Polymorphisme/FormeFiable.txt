@@ -1,0 +1,8 @@
+1.Surcharge de methode -- overloading
+2.Statique (compilation)
+3.Methodes de signatures differents
+
+重载
+在同一个类中定义多个同名方法，但他们的参数列表不同（参数类型、个数、顺序不同）
+通常适用于不同的参数输入的方法。
+
