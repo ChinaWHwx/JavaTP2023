@@ -26,7 +26,7 @@ class Aninal{
 class Chien extends Animal{
     public Chien(String nom){
         super(nom);                         //为什么要用super？
-        //使用super来调用父类的构造函数来初始化nom，并使之正确赋值。
+                                            //使用super来调用父类的构造函数来初始化nom，并使之正确赋值。
     }
 
     @override
@@ -60,9 +60,9 @@ class MonException extends Exception{
 }
 
 class Example{
-    public void diviser(int a, int b) throws MonException{   //
+    public void diviser(int a, int b) throws MonException{   //throws用于在方法声明中指定该方法可能抛出的异常类型
         if(b==0){
-            throw new MonException("Division par Zero");     //
+            throw new MonException("Division par Zero");     //throw关键字用于在代码块中手动抛出一个特定的异常对象
         }
         int resultat = a / b;
         System.out.println("Resultat:" + resultat);
@@ -142,7 +142,7 @@ Exemple exemple = new Exemple();
 try {
     exemple.lancerException();
 } catch( MonException e){
-    System.out.println("Exception :" + e.getMessage());///get方法？？？？？？？？？？？？？？？？？？？？？
+    System.out.println("Exception :" + e.getMessage());//当捕获到一个异常对象时，可以使用'getMessage()'来获取异常的消息字符串
 }
 
 
@@ -154,7 +154,7 @@ try (FileReader fileReader = new FileReader("fichier.txt");
         System.out.println(ligne);
     }
 } catch (IOException e) {
-    System.out.println("Erreur de lecture du fichier : " + e.getMessage());///get方法？？？？？？？？？？？
+    System.out.println("Erreur de lecture du fichier : " + e.getMessage());
 }
 
 Question 11:
@@ -209,6 +209,22 @@ Calculable calculable = new Calculable() {
 System.out.println(calculable.calculer(5, 3));
 
 lambda表达式：                                     ？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+语法：
+(parameters) -> { body }
+1.无参数的Lambda表达式
+() -> System.out.println("Hello, World!")
+2.单个参数的Lambda表达式
+x -> x * x
+3.多个参数的Lambda表达式
+(x, y) -> x + y
+4.带有代码块的Lambda表达式
+(x, y) -> {
+    int sum = x + y;
+    System.out.println("Sum: " + sum);
+}
+Lambda表达式可以用于函数式接口的实例化，函数式接口是只包含一个抽象方法的接口。
+可以使用Lambda表达式来替代传统的匿名内部类，以更简洁的方式实现接口的实例化。
+
 interface Calculable {
     int calculer(int a, int b);
 }
