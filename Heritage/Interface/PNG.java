@@ -6,8 +6,18 @@ class PNG extends Image {
 
     final String MIME_TYPE = "image/png";
 
-    public PNG(){
+
+    public PNG() {
+        // 将MIME_TYPE值分配给对象
         String mimeType = MIME_TYPE;
+        System.out.println("MIME Type: " + mimeType);
+    }
+    public PNG(String url) {
+        super(url);
+    }
+
+    public PNG(int width, int height) {
+        super(width, height);
     }
 
     @Override

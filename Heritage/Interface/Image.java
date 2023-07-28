@@ -24,6 +24,9 @@ abstract class Image implements VisualElement{
         }
     }
 
+    public Image(){
+
+    }
     public Image(int width,int height){
         this.image = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
         this.width = width;
