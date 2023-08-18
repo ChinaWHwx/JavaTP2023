@@ -2,7 +2,7 @@ package Clonage;
 
 import java.util.Random;
 
-public class Trooper implements Cloneable{
+public class Trooper implements Cloneable{//士兵类
     private static int compteur = 0;
     /*
      *计数器变量必须被声明为静态的，这样它的值就可以在所有的Trooper类的实例之间共享。
@@ -12,35 +12,29 @@ public class Trooper implements Cloneable{
      *通过使用静态变量，我们确保每一个新的克隆都能得到一个唯一的标识符，即在每次创建克隆时递增计数器的值。
      */
 
-    private int id;
+    private int identifiant;
     private String nom;
     private int niveauSante;
     private Arme arme;
     private Grade grade;
-    private  Ceinture ceinture;
 
-    public Trooper(){
-        this.id = ++compteur;
-        this.nom = "Clone de Jango Fett #" + id;
-        this.niveauSante = new Random().nextInt(51)+50;
-        this.arme = null;
-        this.grade = Grade.TROOPER;
+    public Trooper() {
+        this("Clone de Jango Fett #" + ++compteur, (int) (Math.random() * 51) + 50, new Fusil(compteur), Grade.TROOPER);
     }
 
-    public Trooper(String nom, int niveauSante, Arme arme, Grade grade, Ceinture ceinture) {
-        this.id = ++compteur;
+    public Trooper(String nom, int niveauSante, Arme arme, Grade grade) {
+        this.identifiant = ++compteur;
         this.nom = nom;
         this.niveauSante = niveauSante;
         this.arme = arme;
         this.grade = grade;
-        this.ceinture = ceinture;
     }
 
     public void setId(){
-        this.id = id;
+        this.identifiant = identifiant;
     }
     public int getId() {
-        return id;
+        return identifiant;
     }
 
     public void setNom(String nom) {
@@ -69,14 +63,6 @@ public class Trooper implements Cloneable{
         return grade;
     }
 
-    public void setCeinture(Ceinture ceinture) {
-        this.ceinture = ceinture;
-    }
-
-    public Ceinture getCeinture(){
-        return  ceinture;
-    }
-
     public void setArme(Arme arme) {
         this.arme = arme;
     }
@@ -84,42 +70,57 @@ public class Trooper implements Cloneable{
     @Override
     public String toString() {
         return "Trooper{" +
-                "identifiant=" + id +
+                "identifiant=" + identifiant +
                 ", nom='" + nom + '\'' +
                 ", niveauSante=" + niveauSante +
                 ", arme=" + (arme !=null?arme.getSerie():null) +
                 ", grade=" + grade +
-                ", ceinture= " + ceinture +
                 '}';
     }
 
+    /*
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        Trooper trooper = (Trooper) super.clone();
-        if (this.arme != null) {
-            trooper.arme = (Arme) this.arme.clone(); // 深拷贝Arme对象
+    public Object clone() {
+        Trooper object = null;
+        try {
+            object = (Trooper) super.clone();
+        } catch(CloneNotSupportedException cnse) {
+            cnse.printStackTrace(System.err);
         }
-        if (this.ceinture != null) {
-            trooper.ceinture = (Ceinture) this.ceinture.clone(); // 深拷贝Ceinture对象
+        return object;
+    }
+    */
+    @Override
+    public Object clone() {
+        try {
+            Trooper clone = (Trooper) super.clone();
+            clone.arme = (Arme) arme.clone(); // 深克隆引用类型属性
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace(System.err);
+            return null;
         }
-        return trooper;
     }
 
 
 
 
     public static void main(String[] args) {
-        Trooper trooper = new Trooper();
-        System.out.println(trooper);
+        Trooper cody = new Trooper("Cody", 90, new Fusil(123), Grade.COMMANDEUR);
+        System.out.println("Cody: " + cody);
 
-        try {
-            Trooper clone = (Trooper) trooper.clone();
-            clone.setNom("Clone de Jango Fett #" + clone.getId());
-            clone.getArme().setSerie(999);
-            clone.setNiveauSante(49);
-            System.out.println(clone);
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        Trooper cloneCody = (Trooper) cody.clone();
+        cloneCody.nom = "Mort";
+        cloneCody.niveauSante = 49;
+        ((Fusil) cloneCody.arme).setSerie(456);
+
+        System.out.println("Original Cody: " + cody);
+        System.out.println("Clone Cody: " + cloneCody);
     }
 }
+
+
+//浅克隆：会复制原始对象的基本属性，但对于引用类型属性，只复制引用，不复制引用指向的对象。这意味着克隆对象和原始对象共享相同的引用类型属性所指向的对象。
+//当修改克隆对象的武器编号时，原始对象的武器编号也会被修改，因为它们共享同一个武器对象。
+//------------------------------------------------------------------------------------------------------------------------
+//深克隆：深克隆会复制原始对象的所有属性，包括引用类型属性所引用的对象。这意味着克隆对象和原始对象拥有各自独立的属性副本，彼此之间不会相互影响。
